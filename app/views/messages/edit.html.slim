@@ -1,0 +1,22 @@
+h1 = @content.title
+hr
+.row
+  .col-md-9
+    .question = render @content.question
+
+    hr
+    = bootstrap_form_for @answer,
+      url: question_answer_path(@content, @answer) do |f|
+      = f.text_area :body, label: 'Your answer', rows: 10
+      = f.primary 'Save changes'
+      =< link_to 'Cancel', question_path(@content), class: 'btn btn-light'
+
+  .col-md-3
+    table.question-info
+      tr
+        td asked
+        td.value = @content.created_at
+      tr
+        td viewed
+        td.value = pluralize @content.views_count, 'time'
+    h4 Related

@@ -1,0 +1,28 @@
+.h1 Edit #{@user.login}
+div class='avatar'
+  = image_tag @user.avatar.thumb.url if @user.avatar.present?
+hr
+= bootstrap_form_for @user do |f|
+  = f.text_field :login, autofocus: true, autocomplete: "login"
+  = f.file_field :avatar
+  = f.hidden_field :avatar_cache
+  = f.email_field :email, autocomplete: "email"
+  = f.date_field :birthday, autocomplete: "birthday"
+  = f.select(:role, User.roles.keys.map { |role| [role.titleize,role] }) if current_user.role == 'admin'
+
+  = f.submit 'Save profile', class: 'btn btn-primary mr-2'
+  = link_to 'Cancel', @user, class: 'btn btn-light'
+
+hr
+- if @user.location
+  = link_to "Edit my location", edit_location_path(@user.location.id), class: 'btn btn-secondary'
+- else
+  = link_to "Add my location", new_location_path(user_id: @user.id), class: 'btn btn-secondary'
+
+hr
+- if @user == current_user
+  = link_to 'Edit your registration info', edit_user_registration_path, class: 'btn btn-secondary'
+  span.text-muted<
+    | (password and email)
+- elsif current_user.role == 'admin'
+  = link_to 'Delete this account', registration_path(@user), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger'

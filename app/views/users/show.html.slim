@@ -1,0 +1,34 @@
+.row
+  .col-md-9
+    h1 = @user.login
+  .col-md-3
+    - if @user == current_user || current_user&.role == 'admin'
+      = link_to 'Edit Your Profile', edit_user_path, class: 'btn btn-primary mt-2 float-right'
+hr
+.row.user-profile
+  .col-md-2.avatar
+    = image_tag @user.avatar.thumb.url, alt: @user.login if @user.avatar.present?
+  .col-md-4.data
+    table
+      tbody
+        tr
+          th Member since:
+          td = @user.created_at.strftime '%B %d, %Y'
+      tbody
+        tr
+          th Birthday:
+          - if @user.birthday
+            td = @user.birthday.strftime '%B %d, %Y'
+          - else
+            td NA
+      - if @user.location
+        tbody
+          tr
+            th Address:
+            td = @user.location&.address
+  .col-md-6.map
+    - if @user.location
+      div id = 'map'
+      - provide :head_tags do
+        script
+          | window.addEventListener("turbolinks:load", () => { initMap(#{@user.location.latitude}, #{@user.location.longitude}) });

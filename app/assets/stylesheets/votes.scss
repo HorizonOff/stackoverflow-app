@@ -1,0 +1,21 @@
+.vote {
+  .increse,
+  .decrise {
+    border: none;
+    background-color: transparent;
+
+    &.active {
+      path {
+        fill: #17a2b8;
+      }
+    }
+
+    svg > path {
+      fill: #000;
+
+      &:hover {
+        fill: #17a2b8;
+      }
+    }
+  }
+}

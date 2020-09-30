@@ -1,0 +1,25 @@
+li
+  .row
+    .col-md-4.col-lg-3.counters
+      .votes
+        .mini-counts = content.question.vote_score
+        p.small Votes
+      .answers
+        .mini-counts = content.answers.count
+        p.small Answers
+      .views
+        .mini-counts = content.views_count
+        p.small Views
+    .col-md-8.col-lg-9.summary
+      h3 = link_to content.title, question_path(content)
+      table.user-info
+        tr: td colspan='2'
+          = content.question.created_at.strftime('%B %d, %Y')
+          tr
+            td.avatar
+              = image_tag content.question.user.avatar.small.url, alt: content.question.user.avatar.identifier
+            td
+              => link_to content.question.user.login, content.question.user
+      p.tags
+        = render 'layouts/tags', content: content
+  hr

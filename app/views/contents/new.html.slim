@@ -1,0 +1,7 @@
+= bootstrap_form_for @content, url: questions_path do |f|
+  = f.text_field :title, autofocus: true
+  = f.fields_for :question do |q|
+    = q.text_area :body, hide_label: :true, rows: 10
+    = f.text_field :tags, value: @content.tags.map{ |t| t.name }.join(','), class: 'form-select',
+                          id: 'dropdown-choice-select', multiple: true
+  = f.submit 'Post your question', class: 'btn btn-primary'

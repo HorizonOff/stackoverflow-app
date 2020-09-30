@@ -1,0 +1,12 @@
+.row
+  .col-md-6
+    h1 Questions
+  .col-md-3
+    - if user_signed_in?
+      = link_to 'Ask question', new_question_path, class: 'btn btn-primary float-right mt-2'
+  .col-md-3
+hr
+.row
+  .col-md-9
+    ul#questions = render @content
+  .col-md-3

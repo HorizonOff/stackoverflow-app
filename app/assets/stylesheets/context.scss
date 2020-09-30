@@ -1,0 +1,68 @@
+.wrapper {
+  width: 1100px;
+  margin: 10px auto auto;
+}
+
+@mixin no-bullets-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul#questions {
+  @include no-bullets-list;
+  .counters {
+    .views {
+      color: gray;
+    }
+
+    .votes,
+    .answers,
+    .views {
+      width: 60px;
+      text-align: center;
+      display: inline-block;
+
+      .mini-counts {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .summary {
+    h3 > a {
+      color: grey;
+    }
+  }
+}
+
+.vote-cell {
+  width: 60px;
+  vertical-align: top;
+  font-size: 2em;
+}
+
+.user-info {
+  font-size: .9em;
+  float: right;
+  background-color: aliceblue;
+
+  td {
+    padding: 0 5px;
+  }
+
+  .avatar {
+    width: 35px;
+  }
+}
+
+#answers ul {
+  @include no-bullets-list;
+}
+
+.question-info {
+  .value {
+    font-weight: bold;
+    padding-left: 5px;
+  }
+}

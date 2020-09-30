@@ -1,0 +1,31 @@
+table
+  tr
+    td.vote-cell rowspan="2"
+      .vote.text-center
+        button.btn.increse data-message-id='#{message.id}'
+          svg.m0.svg-icon.iconArrowUpLg aria-hidden="true" height="36" viewbox=("0 0 36 36") width="36"
+            path d=("M2 26h32L18 10 2 26z")
+        span.score id='sc-#{message.id}' = message.vote_score
+        button.btn.decrise data-message-id='#{message.id}'
+          svg.m0.svg-icon.iconArrowDownLg aria-hidden="true" height="36" viewbox=("0 0 36 36") width="36"
+            path d=("M2 10h32L18 26 2 10z")
+    td.postcell
+      = message.body
+      - unless message.answer
+        p.tags
+          = render 'layouts/tags', content: message.content
+      table.user-info
+        tr: td colspan='2'
+          => message.answer ? 'answered' : 'asked'
+          = message.created_at.strftime('%B %d, %Y')
+        tr
+          td.avatar
+            = image_tag message.user.avatar.small.url, alt: message.user.avatar.identifier
+          td
+            => link_to message.user.login, user_path(message.user)
+            br
+      - if user_signed_in?
+        p
+          - if message.user == current_user || current_user.role != 'customer'
+            - path = message.answer ? edit_question_answer_path(message.content, message) : edit_question_path(message.content)
+            = link_to 'Edit', path

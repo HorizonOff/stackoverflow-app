@@ -1,0 +1,8 @@
+= bootstrap_form_for @content, url: question_path(@content) do |f|
+  = f.text_field :title, autofocus: true
+  = f.fields_for @content.question do |q|
+    = q.text_area :body, hide_label: :true, rows: 10
+    = f.text_field :tags, value: @content.tags.map{ |t| t.name }.join(','), class: 'form-select',
+                          id: 'dropdown-choice-select', multiple: true
+  = f.primary 'Save changes'
+  =< link_to 'Cancel', question_path(@content), class: 'btn btn-light'
